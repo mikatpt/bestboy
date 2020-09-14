@@ -1,0 +1,82 @@
+BestBoy is a hidden object game where we search a grip truck for the equipment we need for a shoot.
+You are a first year bestboy. 
+
+At simplest, here's what we need to implement:
+
+-Splash screen (launch screen when opening app)
+    -https://docs.expo.io/guides/splash-screens/?redirected
+
+-Main menu screen
+
+story mode
+    - get pay stubs for your performance
+    - get reports for how much you delayed production after each shoot day
+    
+
+-PRACTICE MODE (Part time job at equipment rental house)
+    -options for what grip equipment you want to include in game. 
+
+-Loading screen
+
+
+
+-GAME
+    -1 game constitutes a Shoot day - global timer 5min
+    -new request comes in every time you fill one
+        - game keeps track of how long it takes you to fill a request
+        - bonus points if fast, negative points if slow
+    - the faster you fill requests the more you get.
+        - if you're fast, you get more points.
+        - at the end: "You saved production x minutes!"
+                      "You cost production x minutes! >:|
+                -flavor text: how the shoot went
+                       "actor spilled water on self"
+                       "director was grumpy"
+
+    - each round, grip person in charge asks for x amount of equipment and you have to find it.
+        - Start with only one item (EASY MODE), later add more items OR more complicated items
+    -Timer
+        -If you go over, you are delaying the shoot!
+
+    -Points tracker
+
+    -Results screen
+
+    -manifest - list of all items in truck.
+        -hard mode: key grip/gaffer will call for items you don't have in truck. walkie talkie them back to say you DON'T have item.
+        -harder mode: substitute an item that would work instead of what's needed.
+
+    -Walkie talkie:
+        - send item
+        - say don't have item
+            - Bonus points if you send a substitute that works
+            - else, frowny face/grumpy flavor text
+
+    -in the top right, journal button for a cheat sheet.
+
+    -All equipment goes in an array, equipment.
+        - Initialize each game round with an array, equipmentNeeded
+        - randomize equipmentNeeded based on Sheree input
+        - maybe give each a % probability for showing up? i.e. cameras will be needed 100% of the time?
+        - or have set lists
+        - scenarios??? night time shoot, day time, rain, etc????
+         
+    -Equipment is placed in truck - we should have something like 3 different truck layouts.
+
+    -Zoom functionality for details.
+        -Can open containers to search for items inside.
+
+    -Flavor text
+        -"We're shooting a ___ scene today! We need ____ to do it!"
+
+
+EXTRAS:
+
+- Set up a set
+- Actually set up the equipment (3D models)
+    - check if equipment works before packing/at the scene.
+- drive the truck
+-scenarios... rain? build a tent so your cameras don't break.
+-HARD MODE: Energy/hunger bar.
+
+BESTBOY 2: CAMERABOY
