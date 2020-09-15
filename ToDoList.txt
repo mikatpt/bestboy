@@ -1,5 +1,20 @@
-BestBoy is a hidden object game where we search a grip truck for the equipment we need for a shoot.
+BestBoy is a find-the-object game where we search a grip truck for the equipment we need for a shoot.
 You are a first year bestboy. 
+
+
+CURRENTLY WORKING ON:
+-Main menu screen
+    -PLAY
+        - CAMPAIGN
+        - ENDLESS MODE (takes you to options screen w/ time constraints, enable/disable items)
+    -HIGH SCORES
+    -OPTIONS
+    -mute button, top right corner
+
+Docs for stack navigation, headers, etc.
+https://reactnavigation.org/docs/stack-navigator/
+
+
 
 At simplest, here's what we need to implement:
 
@@ -7,11 +22,15 @@ At simplest, here's what we need to implement:
     -https://docs.expo.io/guides/splash-screens/?redirected
 
 -Main menu screen
+    -PLAY
+        - CAMPAIGN
+        - ENDLESS MODE (takes you to options screen w/ time constraints, enable/disable items)
+    -OPTIONS
 
 story mode
     - get pay stubs for your performance
     - get reports for how much you delayed production after each shoot day
-    
+
 
 -PRACTICE MODE (Part time job at equipment rental house)
     -options for what grip equipment you want to include in game. 
