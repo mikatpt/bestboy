@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-// change to class?
-const HomeScreen = () => {
+// HomeScreen is called in Stack.Navigator
+// All items in Stack.Navigator receive the navigation prop.
+// Call navigation.navigate() on the name of the route you want to move to.
+const HomeScreen = ({navigation}) => {
     return (
-        <View style={styles.container}><Text>Home Screen</Text></View>
+        <View style={styles.container}>
+            <Text>BestBoy (Title Graphic)</Text>
+            <Button title="Play" onPress={() => navigation.navigate("Play")} />
+            <Button title="High Scores" />
+            <Button title="Options" />
+        </View>
     )
 }
 
+// we'll style these all individually and optimize later!
 const styles = StyleSheet.create({
     container: {
       flex: 1,
