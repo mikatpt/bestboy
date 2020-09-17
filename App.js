@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/HomeScreen';
 import LoadingScreen from './src/LoadingScreen';
 import PlayScreen from './src/PlayScreen';
+import OptionsScreen from './src/OptionsScreen';
+import HighScoreScreen from './src/HighScoreScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +39,24 @@ const App = () => {
         // options={({ route }) => ({ title: route.params.name })}/>
         options={{
           headerTitle:'Play',
+          headerShown: false,
+          headerLeft:'' // this overrides the header back button. we'll use a regular button instead!
+        }}/>
+        <Stack.Screen
+        name="Options"
+        component={OptionsScreen}
+        // options={({ route }) => ({ title: route.params.name })}/>
+        options={{
+          headerTitle:'Options',
+          headerShown: false,
+          headerLeft:'' // this overrides the header back button. we'll use a regular button instead!
+        }}/>
+        <Stack.Screen
+        name="High Scores"
+        component={HighScoreScreen}
+        // options={({ route }) => ({ title: route.params.name })}/>
+        options={{
+          headerTitle:'High Scores',
           headerShown: false,
           headerLeft:'' // this overrides the header back button. we'll use a regular button instead!
         }}/>

@@ -9,8 +9,8 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.container}>
             <Text>BestBoy (Title Graphic)</Text>
             <Button title="Play" onPress={() => navigation.navigate("Play")} />
-            <Button title="High Scores" />
-            <Button title="Options" />
+            <Button title="High Scores" onPress={() => navigation.navigate("High Scores")} />
+            <Button title="Options" onPress={() => navigation.navigate("Options")}/>
         </View>
     )
 }
