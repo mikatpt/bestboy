@@ -4,17 +4,68 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/HomeScreen';
-import LoadingScreen from './src/LoadingScreen';
-import PlayScreen from './src/PlayScreen';
-import OptionsScreen from './src/OptionsScreen';
-import HighScoreScreen from './src/HighScoreScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import LoadingScreen from './src/screens/LoadingScreen';
+import PlayScreen from './src/screens/PlayScreen';
+import OptionsScreen from './src/screens/OptionsScreen';
+import HighScoreScreen from './src/screens/HighScoreScreen';
+import TestScreen from './src/screens/TestScreen';
+import * as ScreenOrientation from 'expo-screen-orientation';
+
+
+/* 
+If going to implement splash screen with AppLoading:
+add these imports and shift Stack to Routes js document.
+import { Image, Text, View } from 'react-native';
+import { Asset } from 'expo-asset';
+import { AppLoading } from 'expo';
+import Routes from './screens/Routes';
+
+class App extends React.Component {
+  state = {
+    isReady: false
+  };
+  render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading 
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({isReady: true})}
+          onError={console.warn}
+        />
+      );
+    }
+
+    return (
+      <Routes />
+    );
+  }
+  async _cacheResourcesAsync() { // replace these with assets that require loading.
+    const images = [require('./assets/380589.jpg')];
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+    return Promise.all(cacheImages);
+  }
+}
+
+export default App;
+
+
+*/
+
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  // header controlled by options.title. maybe later pass a screenOptions prop later?
-  // to hide header, in options headerShown: false
+
+  // Call to force landscape.
+  async function changeScreenOrientation() {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+  }
+  changeScreenOrientation();
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -57,6 +108,15 @@ const App = () => {
         // options={({ route }) => ({ title: route.params.name })}/>
         options={{
           headerTitle:'High Scores',
+          headerShown: false,
+          headerLeft:'' // this overrides the header back button. we'll use a regular button instead!
+        }}/>
+        <Stack.Screen
+        name="Test"
+        component={TestScreen}
+        // options={({ route }) => ({ title: route.params.name })}/>
+        options={{
+          headerTitle:'Test',
           headerShown: false,
           headerLeft:'' // this overrides the header back button. we'll use a regular button instead!
         }}/>

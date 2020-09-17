@@ -3,43 +3,68 @@ You are a first year bestboy.
 
 
 CURRENTLY WORKING ON:
--Main menu screen
-    -PLAY
-        - CAMPAIGN
-        - ENDLESS MODE (takes you to options screen w/ time constraints, enable/disable items)
-    -HIGH SCORES
-    -OPTIONS
-    -mute button, top right corner
 
-Docs for stack navigation, headers, etc.
-https://reactnavigation.org/docs/stack-navigator/
+GAME
+    - Header
+        - Pause menu
+        - Points Tracker
+        - Timer
+        - Mission title
+        - Manifest (items in truck, pictures & descriptions)
+    - Game
+        - Truck
+        - Assets (items to identify)
+        - Zoom capability 
+            - Open containers. 
+            - Explore inside of truck (Do we need this?)
+    - Footer
+        - Inventory
+        - Instructions from the grip manager
+        - Radio
+            - SEND
+            - DON'T HAVE IT!
 
+    - Results screen
+
+- IRL, sketched out an image to work off of.
 
 
 At simplest, here's what we need to implement:
 
--Splash screen (launch screen when opening app)
+
+Splash screen (launch screen when opening app)
     -https://docs.expo.io/guides/splash-screens/?redirected
 
--Main menu screen
+- FILLER KITTY IMAGE ADDED.
+- WHEN WE HAVE MORE ASSETS, RESEARCH MORE ON HOW TO USE APPLOADING
+
+///////////////////////////////
+
+Loading screen
+
+- Made a screen, but need to add images and figure out apploading.
+
+///////////////////////////////
+
+Main menu screen
+
+https://reactnavigation.org/docs/
+-important resource: stack navigation, headers, button format, etc.
+
     -PLAY
-        - CAMPAIGN
-        - ENDLESS MODE (takes you to options screen w/ time constraints, enable/disable items)
+        - STORY MODE
+        - PRACTICE MODE (takes you to options screen w/ time constraints, enable/disable items)
     -OPTIONS
+    -mute button, top right corner
 
-story mode
-    - get pay stubs for your performance
-    - get reports for how much you delayed production after each shoot day
+- OUTLINED. SKELETON CREATED.
+- NEED TO:
+    - REPLACE MOST TEXT WITH BUTTONS WHICH DO CORRECT THINGS
 
-
--PRACTICE MODE (Part time job at equipment rental house)
-    -options for what grip equipment you want to include in game. 
-
--Loading screen
+///////////////////////////////
 
 
-
--GAME
+GAME
     -1 game constitutes a Shoot day - global timer 5min
     -new request comes in every time you fill one
         - game keeps track of how long it takes you to fill a request
@@ -87,6 +112,15 @@ story mode
 
     -Flavor text
         -"We're shooting a ___ scene today! We need ____ to do it!"
+
+
+
+story mode
+    - get pay stubs for your performance
+    - get reports for how much you delayed production after each shoot day
+
+-PRACTICE MODE (Part time job at equipment rental house)
+    -options for what grip equipment you want to include in game. 
 
 
 EXTRAS:
