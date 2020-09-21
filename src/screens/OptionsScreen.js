@@ -3,24 +3,24 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 const OptionsScreen = ({navigation}) => {
-    return ( // Change these text boxes to proper buttons or toggles as necessary!
-        <View style={styles.container}>
-            <Text>Sound</Text>
-            <Text>Miscellaneous Options</Text>
-            <Text>Credits</Text>
-            <Button title="Go back" onPress={() => navigation.goBack()} />
-        </View>
-    )
+  return ( // Change these text boxes to proper buttons or toggles as necessary!
+    <View style={styles.container}>
+      <Text>Sound</Text>
+      <Text>Miscellaneous Options</Text>
+      <Text>Credits</Text>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  )
 }
 
 // will refactor later!
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 
