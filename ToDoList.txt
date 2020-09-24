@@ -4,64 +4,97 @@ You are a first year bestboy.
 
 CURRENTLY WORKING ON:
 
+firebase? for high scores
+look up exgl
+look up redux rematch library for high scores.
+mute button: 'connect state of audio to rematch redux so mute state persists even if app is closed'
+
 GAME
     - Header
         - Pause menu
         - Points Tracker
         - Timer
+            - 30 second 'set up period'
+            - x minute long day.
         - Mission title
         - Manifest (items in truck, pictures & descriptions)
     - Game
         - Truck
         - Assets (items to identify)
+        - double tap to Zoom
+        - tap to select item, then tap again and hold to set up.
+            - Can prep items (takes ~3-5 seconds). Gives bonus points (speed up production!)
+            - BUT at end of day, have to pack up items you prepped which takes time too.
         - Zoom capability 
             - Open containers. 
             - Explore inside of truck (Do we need this?)
+        - Random events
+            - Coffee mug (+5 to time)
+            
     - Footer
         - Inventory
         - Instructions from the grip manager
+            - Accompanied with gibberish squeaky voice
+            - maybe angry squeaky voice if you get something wrong
+            - https://www.youtube.com/watch?v=xA0DE3S3mNo
+                - instructions on how to do it. i guess speed up x20 for the effect?
         - Radio
             - SEND
             - DON'T HAVE IT!
+            - Text bubble spouting instructions, animated radio.
 
     - Results screen
 
 - IRL, sketched out an image to work off of.
 
 
-At simplest, here's what we need to implement:
+///////////////////////////////////////////////////////////
+PROJECT TO DO LIST
+///////////////////////////////////////////////////////////
+
 
 
 Splash screen (launch screen when opening app)
     -https://docs.expo.io/guides/splash-screens/?redirected
 
 - FILLER KITTY IMAGE ADDED.
-- WHEN WE HAVE MORE ASSETS, RESEARCH MORE ON HOW TO USE APPLOADING
+- WHEN WE HAVE MORE ASSETS, RESEARCH HOW TO USE APPLOADING TO PROPERLY PRELOAD ASSETS.
 
-///////////////////////////////
 
-Loading screen
+///////////////////////////////////////////////////////////
 
-- Made a screen, but need to add images and figure out apploading.
 
-///////////////////////////////
+Main menu
+- https://reactnavigation.org/docs/
+    - Important resource: stack navigation, headers, button format, etc.
 
-Main menu screen
 
-https://reactnavigation.org/docs/
--important resource: stack navigation, headers, button format, etc.
+- Force landscape
+    - https://docs.expo.io/versions/latest/sdk/screen-orientation/
+    - DONE.
 
-    -PLAY
+- Screens
+    - PLAY
         - STORY MODE
         - PRACTICE MODE (takes you to options screen w/ time constraints, enable/disable items)
-    -OPTIONS
-    -mute button, top right corner
+    - OPTIONS
+    - mute button, top right corner
+
 
 - OUTLINED. SKELETON CREATED.
 - NEED TO:
     - REPLACE MOST TEXT WITH BUTTONS WHICH DO CORRECT THINGS
 
-///////////////////////////////
+
+///////////////////////////////////////////////////////////
+
+
+Loading screen
+
+- Made a screen, but need to add images and figure out apploading.
+
+
+///////////////////////////////////////////////////////////
 
 
 GAME
@@ -114,6 +147,8 @@ GAME
         -"We're shooting a ___ scene today! We need ____ to do it!"
 
 
+///////////////////////////////////////////////////////////
+
 
 story mode
     - get pay stubs for your performance
@@ -121,6 +156,10 @@ story mode
 
 -PRACTICE MODE (Part time job at equipment rental house)
     -options for what grip equipment you want to include in game. 
+
+
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 
 EXTRAS:

@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+import React, { useState } from "react";
+import Constants from "expo-constants";
+import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
@@ -11,6 +12,7 @@ import OptionsScreen from './src/screens/OptionsScreen';
 import HighScoreScreen from './src/screens/HighScoreScreen';
 import TestScreen from './src/screens/TestScreen';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { setStatusBarHidden } from 'expo-status-bar';
 
 
 /* 
@@ -54,13 +56,12 @@ export default App;
 
 */
 
-
-
 const Stack = createStackNavigator();
 
 const App = () => {
+  setStatusBarHidden(true);
 
-  // Call to force landscape.
+  // Call to force landscape. We'll need to implement splash screen within this function - splash screen is currently called before screen orientation changes.
   async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
   }
