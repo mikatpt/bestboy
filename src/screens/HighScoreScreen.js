@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 
 
 const HighScoreScreen = ({navigation}) => {
@@ -8,8 +8,8 @@ const HighScoreScreen = ({navigation}) => {
       <Text>Format High scores on this page.</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
-  )
-}
+  );
+};
 
 // will refactor later!
 const styles = StyleSheet.create({

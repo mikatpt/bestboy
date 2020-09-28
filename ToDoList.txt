@@ -2,6 +2,17 @@ BestBoy is a find-the-object game where we search a grip truck for the equipment
 You are a first year bestboy. 
 
 
+LIST OF THINGS TO DEBUG:
+- Component vs PureComponent
+You should go for React.PureComponent when you can satisfy any of the below conditions.
+
+    State/Props should be an immutable object
+    State/Props should not have a hierarchy
+    You should call forceUpdate when data changes
+
+
+
+
 CURRENTLY WORKING ON:
 
 firebase? for high scores
@@ -38,6 +49,8 @@ GAME
             - maybe angry squeaky voice if you get something wrong
             - https://www.youtube.com/watch?v=xA0DE3S3mNo
                 - instructions on how to do it. i guess speed up x20 for the effect?
+
+            - I think the instructions should scroll, and you tap radio to get instructions again. listening is important, right?
         - Radio
             - SEND
             - DON'T HAVE IT!

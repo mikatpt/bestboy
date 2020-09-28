@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 
 
 const OptionsScreen = ({navigation}) => {
@@ -10,8 +10,8 @@ const OptionsScreen = ({navigation}) => {
       <Text>Credits</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
-  )
-}
+  );
+};
 
 // will refactor later!
 const styles = StyleSheet.create({

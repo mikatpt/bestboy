@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 
 // HomeScreen is called in Stack.Navigator
 // All items in Stack.Navigator receive the navigation prop.
@@ -8,14 +8,14 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>BestBoy (Title Graphic)</Text>
-      <Button title="Play" onPress={() => navigation.navigate("Play")} />
-      <Button title="High Scores" onPress={() => navigation.navigate("High Scores")} />
-      <Button title="Options" onPress={() => navigation.navigate("Options")}/>
-      <Button title="Test" onPress={() => navigation.navigate("Test")}/>
+      <Button title="Play" onPress={() => navigation.navigate('Play')} />
+      <Button title="High Scores" onPress={() => navigation.navigate('High Scores')} />
+      <Button title="Options" onPress={() => navigation.navigate('Options')}/>
+      <Button title="Test" onPress={() => navigation.navigate('Test')}/>
 
     </View>
-  )
-}
+  );
+};
 
 // we'll style these all individually and optimize later!
 const styles = StyleSheet.create({

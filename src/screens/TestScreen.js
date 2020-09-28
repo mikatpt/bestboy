@@ -1,7 +1,13 @@
-import React, { useState, PureComponent } from "react";
-import { LinearGradient } from 'expo-linear-gradient';
-import { GameEngine, GameLoop } from "react-native-game-engine";
-import { AppRegistry, Button, Dimensions, FlatList, Header, Image, ImageBackground, LogBox, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+/* eslint-disable no-unused-vars */
+import React, {useState, PureComponent} from 'react';
+// import PropTypes from 'prop-types';
+import {GameEngine, GameLoop} from 'react-native-game-engine';
+import {AppRegistry, Button, Dimensions, FlatList, Header,
+  Image, ImageBackground, LogBox, SafeAreaView, StatusBar,
+  StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Head from '../components/Head';
+import Foot from '../components/TestFoot';
+import {preventAutoHide} from 'expo/build/launch/SplashScreen';
 // import Entities from './src/entities'
 
 // backgroundImage should be tied to its corresponding assets.
@@ -16,36 +22,22 @@ const stand = require('../assets/LargeStandCopy.png');
 //   etc.
 // }
 
-const pause = require('../assets/pauseButton.png');
 
-
-const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
+const {width: WIDTH, height: HEIGHT} = Dimensions.get('window');
 const RADIUS = 25;
 
 // We're working with a grip truck. There are set areas for set items
-// We should have a version of the truck with NO items. When we load the game, the game should populate the truck with all its items.
-// so we need an object that contains all items. This object should have the ID of the item, asset image location, and truck dimension location.
+// We should have a version of the truck with NO items.
+// When we load the game, the game should populate the truck with all its items.
+// so we need an object that contains all items.
+// This object should have the ID of the item, asset image location,
+// and truck dimension location.
 // Press an object once to select it. Press again to place in inventory
 
-const Head = (props) => (
-  <LinearGradient colors={['#151525', '#485563']} style={styles.header}>
-    <View style={styles.leftHeader}>
-      <Image source={pause} style={styles.pause}/>
-      <Text style={styles.headerText}>Points</Text>
-      <Text style={styles.headerText}>Timer</Text>
-    </View>
-
-    <Text style={styles.headerText}>Day One</Text>
-
-    <View style={styles.rightHeader}>
-      <Text style={styles.headerText}>Manifest</Text>
-      <Button title="Go back" onPress={() => props.nav.goBack()} />
-    </View>
-  </LinearGradient>
-);
 
 // when testing is done, change this filename to GAME
 export default class TestScreen extends PureComponent {
+  // thing
   constructor() {
     super();
     this.state = {
@@ -54,7 +46,7 @@ export default class TestScreen extends PureComponent {
     this.gameEngine = null;
     // LogBox.ignoreAllLogs(true);
   }
- 
+
   // updateHandler = ({ touches, screen, layout, time }) => {
   //   let move = touches.find(x => x.type === "move");
   //   if (move) {
@@ -64,52 +56,53 @@ export default class TestScreen extends PureComponent {
   //     });
   //   }
   // };
-  
-  // don't think we need this down here.
-  // {/* <StatusBar hidden={true} /> */}
 
   render() {
     return (
-    // <ImageBackground source={backgroundImage} style={styles.container}>
       <View>
-        <Head nav={this.props.navigation}/>
-        <Image source={backgroundImage} style={styles.truck}/>
-        {/* <GameEngine
-            ref={ref => {this.gameEngine = ref}}
-            style={styles.gameContainer}
-            // entities={Entities()}
-            running={this.state.running}>
-    
-              
-          </GameEngine> */}
-          <Image
-            style={styles.stand}
-            source={stand}
-          />
-      </View>
+        <Head nav={this.props.navigation} styles={styles} />
+        <Image source={backgroundImage} style={styles.truck} />
+        <GameEngine
+          ref={(ref) => {
+            this.gameEngine = ref;
+          }}
+          style={styles.gameContainer}
+          // entities={Entities()}
+          running={this.state.running}>
 
-    // </ImageBackground>
+
+        </GameEngine>
+        <Image
+          style={styles.stand}
+          source={stand}
+        />
+        <Foot nav={this.props.navigation} styles={styles} />
+      </View>
     );
   }
 }
 
- 
-AppRegistry.registerComponent("TestScreen", () => TestScreen);
+{/* <Image style={styles.stand} source={stand} /> */}
+// So we need to give each Image item a state of SELECTED: true || false
+// On press: if false, select item. If true,
+
+
+AppRegistry.registerComponent('TestScreen', () => TestScreen);
 
 
 // I suppose we'll use this array to store the game data?
 const DATA = [
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
   },
   {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
   },
 ];
 
@@ -118,7 +111,6 @@ const DATA = [
 //   <Text style={styles.title}>{item.title}</Text>
 //   </TouchableOpacity>
 // );
-
 
 
 // const TestScreen = ({ navigation }) => {
@@ -152,7 +144,6 @@ const DATA = [
 // };
 
 
-
 // STYLES
 
 
@@ -179,22 +170,22 @@ const styles = StyleSheet.create({
   // header stuff
   header: {
     flex: 1,
-    position: "absolute",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "gray",
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'gray',
     width: WIDTH,
     height: 38, // ADJUST THIS FOR HEADER HEIGHT
     borderBottomWidth: 2,
-    borderBottomColor: 'red'
+    borderBottomColor: 'red',
   },
   leftHeader: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     borderWidth: 1,
-    borderColor: "#000000",
+    borderColor: '#000000',
   },
   pause: {
     width: 30,
@@ -202,21 +193,101 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
   rightHeader: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: "#000000",
+    borderColor: '#000000',
   },
   headerText: {
-    color: "white",
+    color: 'white',
     fontSize: 28,
     borderWidth: 1,
-    borderColor: "#000000"
+    borderColor: '#000000',
+  },
+
+  // Footer stuff
+  footer: {
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    // backgroundColor: "gray",
+    width: WIDTH,
+    // height: 38, // ADJUST THIS FOR FOOTER HEIGHT
+    // borderTopWidth: 2,
+    // borderTopColor: 'red'
+  },
+  leftFooter: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    borderWidth: 1,
+    borderColor: '#000000',
+    height: 50,
+  },
+
+  inventory1: {
+    height: 50,
+    width: 50,
+    borderColor: 'black',
+    borderWidth: 4,
+    borderRightWidth: 0,
+    marginLeft: 40,
+  },
+  inventory2: {
+    height: 50,
+    width: 50,
+    borderColor: 'black',
+    borderWidth: 4,
+  },
+  rightFooter: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end', // prolly need to adjust this for walkie buttons
+    // height: 150,
+    borderWidth: 1,
+    borderColor: '#000000',
+  },
+  instructions: {
+    color: 'white',
+    fontSize: 28,
+    borderWidth: 1,
+    borderColor: '#000000',
+    maxWidth: WIDTH / 2,
+  },
+  walkieTalkie: {
+    resizeMode: 'contain',
+    height: 90,
+    maxWidth: 60,
+  },
+  sendButtons: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    borderColor: 'green',
+    borderWidth: 2,
+    maxWidth: 80, // works but crap solution? flex-box wasn't working properly.
+  },
+  buttonYes: {
+    backgroundColor: 'green',
+    fontSize: 28,
+    color: 'white',
+  },
+  buttonNo: {
+    backgroundColor: 'red',
+    fontSize: 28,
+    color: 'white',
   },
   truck: {
     zIndex: -1,
@@ -224,7 +295,7 @@ const styles = StyleSheet.create({
     // position: 'relative',
     // paddingTop: 30,
     top: 20,
-    resizeMode: "cover",
+    resizeMode: 'cover',
     width: WIDTH,
     height: HEIGHT,
     // flex: 1,
@@ -239,7 +310,7 @@ const styles = StyleSheet.create({
     width: 27,
     top: 80,
     left: 160,
-    resizeMode: "contain"
+    resizeMode: 'contain',
     // aspectRatio: 1
   },
   item: {
