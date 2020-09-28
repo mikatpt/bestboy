@@ -85,6 +85,12 @@ export default StyleSheet.create({
     height: 50,
   },
 
+  inventory: {
+    height: 50,
+    width: 50,
+    borderColor: 'black',
+    borderWidth: 4,
+  },
   inventory1: {
     height: 50,
     width: 50,
@@ -98,6 +104,10 @@ export default StyleSheet.create({
     width: 50,
     borderColor: 'black',
     borderWidth: 4,
+  },
+  inventoryImg: {
+    height: 49,
+    width: 49,
   },
   rightFooter: {
     flex: 1,
