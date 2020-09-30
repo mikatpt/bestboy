@@ -15,10 +15,6 @@ You should go for React.PureComponent when you can satisfy any of the below cond
 
 CURRENTLY WORKING ON:
 
-firebase? for high scores
-look up exgl
-look up redux rematch library for high scores.
-mute button: 'connect state of audio to rematch redux so mute state persists even if app is closed'
 
 GAME
     - Header
@@ -174,6 +170,10 @@ story mode
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
 
+firebase? for high scores
+look up exgl
+look up redux rematch library for high scores.
+mute button: 'connect state of audio to rematch redux so mute state persists even if app is closed'
 
 EXTRAS:
 
