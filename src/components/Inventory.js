@@ -3,10 +3,12 @@ import {Image, View} from 'react-native';
 
 // THINGS TO DEBUG:
 // Within Slot, onPress should:
-//   if props.contents.isSelected === false, set to true and highlight the View container.
+//   if props.contents.isSelected === false, set to true, (DONE)
+//   highlight the View container.
 // on select, pop-up with name.
-// on double-tap, remove from inventory.
-
+// on double-tap, remove from inventory. (DONE)
+// CONSIDER changing Slot's image source to props.contents.inventoryUrl.
+//   basically, we need to figure out if inventory assets are worth the work.
 
 // PROPS PASSED DOWN FROM FOOT (state declared in Game.js):
 // inventory (array of objects)
@@ -27,7 +29,6 @@ const Slot = (props) => {
     return null;
   }
   return (
-    // <View style={props.style}>{props.contents}</View>
     <View onPress={'do something!'} style={props.styles.inventory}>
       {props.contents.name !== 'EMPTYSLOT' ?
       <Image source={props.contents.url} style={props.styles.inventoryImg} /> : null
@@ -58,13 +59,13 @@ const Inventory = (props) => {
         contents={i[2]}
         onPress={pI}
         styles={s}
-        shouldRender={props.thirdSlot}
+        shouldRender={props.numSlots >= 3 ? true : false}
       />
       <Slot
         contents={i[3]}
         onPress={pI}
         styles={s}
-        shouldRender={props.fourthSlot}
+        shouldRender={props.numSlots === 4 ? true : false}
       />
     </View>
   );

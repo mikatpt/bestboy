@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import Inventory from '../components/Inventory';
@@ -10,37 +11,63 @@ const walkieTalkie = require('../assets/walkieTalkie2.png');
 // thirdSlot (boolean) and fourthSlot (boolean)
 // styles
 
-// instructions
-// format: array of instruction objects. each instruction object contains text, validItems, other??
-//  [
-//    {
-//      text: 'asking for stand and lights',
-//      itemsNeeded: {
-//        stand: {validItems: {stand: true, bigStand: true}, itemReceived: null},
-//        lights: {validItems: {smallLights: true, bigLights: true}, itemReceived: null},
-//      }
-//    },
-//    {repeat for other instructions},
-//  ]
+// ------------------- CURRENTLY WORKING ON: ---------------------- //
+// disputeItems() ~line 164
+
+/* // ------------------- DATA STRUCTURE FORMAT ---------------------- //
+
+
+// Instructions format:
+
+const instructions = [
+  {
+    text: 'asking for stand and small lights!',
+    itemsNeeded: {
+      'stand': {altItems: {'bigStand': true}, itemReceived: false, itemExists: true},
+      'smallLights': {altItems: {'bigLights': true}, itemReceived: false, itemExists: true},
+    },
+  },
+  {
+    text: 'I need rope and a harness, stat!!!',
+    itemsNeeded: {
+      'rope': {altItems: {'rope': true}, itemReceived: false, itemExists: true},
+      'harness': {altItems: {'harness': true}, itemReceived: false, itemExists: true}
+    },
+  },
+]
 
 // Inventory format:
-// let inventory = [{name: 'stand', url: 'url', isSelected: false, truckIndex: 1}, {name: 'EMPTYSLOT'}, {name: 'EMPTYSLOT'}, {name: 'EMPTYSLOT'}]
-//   optional props: truckdisplay: true, inventoryUrl: 'url'
 
-// let truckInventory = [{name: 'large light', url: 'url', isSelected: false, truckIndex: 0}, {name: 'EMPTYSLOT'}, {name: 'EMPTYSLOT'}]
+const sampleInventory = [
+  {name: 'stand', url: 'url', isSelected: true, truckIndex: 1, wasSent: false},
+  {name: 'EMPTYSLOT'},
+  {name: 'EMPTYSLOT'},
+  {name: 'Optional props?', inventoryUrl: 'url'},
 
-// EVENT HANDLERS
+];
 
-// Sets an item's isSelected property to true
-// OR moves it from inventory back to truck and sets it to false.
-// css animations NOT IMPLEMENTED.
+// Truck inventory format:
+
+const truckInventory = [
+  {name: 'large light', url: 'url', isSelected: false, truckIndex: 0},
+  {name: 'EMPTYSLOT'},
+  {name: 'EMPTYSLOT'},
+  {name: 'DISPUTE', url: 'url', isSelected: false, }
+];
+*/
+
+// ------------------- EVENT HANDLERS ---------------------- //
+
+// Eventually, we'll take all these and place them in a single GameLogic file.
+
+
+// On press, sets an item's isSelected property to true, OR
+// moves it from inventory back to truck and sets it to false.
+// TO IMPLEMENT: all css animations.
 const pressInventory = (self, inventoryIndex = 0) => {
-  // CONSIDER: adding an inventoryUrl property and a truckDisplay property
-  // inventoryUrl for a properly formatted asset that doesn't need styling
-  // truckDisplay to hide an item instead of removing it. This changes it to a display toggle!
   self.setState((state) => {
     const item = state.inventory[inventoryIndex];
-    if (item.name === 'EMPTYSLOT') {
+    if (item.name === 'EMPTYSLOT' || item.correctlySent) {
       return ({});
     } else {
       if (item.isSelected) {
@@ -60,26 +87,130 @@ const pressInventory = (self, inventoryIndex = 0) => {
   });
 };
 
-// pressWalkie (event handler)
-//   Plays a walkie talkie animation, then replays the instructions
 
-// sendItems (event handler)
-// VERY COMPLEX LOGIC. FIGURE THIS OUT!!!
-//   iterate over # of inventory slots (let i = 0; i < 2 OR 3 OR 4; i++),
-//     for each item in inventory,
-//      if item name is EMPTYSLOT, skip.
-//       for each itemNeeded in instructions[relevantidx].itemsNeeded,
-//         check if itemNeeded[inventory[i].name] === true
-//          if so, check if itemNeeded.itemReceived is true
-//            if true, SKIP this iteration.
-//            else, set true and remove item from inventory and DON'T re-add to truck.
-//                then, run points function to add points.
-//       at the end of iteration, (if i = upperBound), if either itemReceived is false,
-//       re-add items to truck and remove from inventory, deducting points.
-// when do we deduct points?
-// if EITHER inventory item doesn't match.
-// eventually when both itemReceived things are true, set flag to get new instructions
+// TO IMPLEMENT: finish updatePoints, sendInstructions, animations.
+const sendItems = (props) => {
+  // Uses props.numSlots, props.inventory, and currentInstructions.
+  // On press, sends items and gives you points.
+  const items = instructions[currentInstructionIndex].itemsNeeded;
+  let pointsAccrued = 0;
+  let pointsDeducted = 0;
+  let numSent = 0;
 
+  for (const key in items) {
+    if (!{}.hasOwnProperty.call(items, key)) {
+      return 'ERROR';
+    } else {
+      const item = items[key];
+      for (let i = 0; i < props.numSlots; i++) {
+        const invenItem = props.inventory[i];
+
+        // this is a temporary case. remove when properly implemented.
+        if (invenItem.name === 'EMPTYSLOT') {
+          return 'ERROR THIS IS A REMINDER TO IMPLEMENT NO-SENDING IF INVENTORY ISN\'T FULL.';
+        }
+
+        if (invenItem.wasSent) {
+          // if inventory item has been sent already, SKIP.
+          numSent++;
+          continue;
+        } else if (invenItem.name === key || item.altItems[invenItem.name]) {
+          // pass cases
+
+          // if item has already been received, deduct points.
+          if (item.itemReceived) {
+            pointsDeducted -= 100;
+            // flash slot red.
+          } else {
+            // If it hasn't been received, set flag to true and style green.
+
+            // I THINK WE MAY NEED TO USE SETSTATE FOR THESE TWO FLAGS.
+            item.itemReceived = true;
+            invenItem.wasSent = true;
+
+            numSent++;
+            // IMPLEMENT style slot green + checkmark.
+
+            // extra points if you sent the alternative.
+            invenItem.name === key ? pointsAccrued += 300 : pointsAccrued += 500;
+          }
+        } else {
+          // fail cases
+          pointsDeducted -= 100;
+          // flash slot red.
+        }
+      }
+    }
+  }
+
+  // Call below to update points and render animations.
+  // updatePoints(pointsAccrued, pointsDeducted);
+
+  // if (numSent === props.numSlots) {
+  //   currentInstructionIndex++;
+  //   // render 'good job' flavor text. happy radio sounds.
+  //   renderRadioText('HAPPY FLAVOR TEXT', 'happy');
+  //   // some sort of delay.....
+  //   sendInstructions('happy');
+  //
+  // } else {
+  //   // unhappy sounds. angry flavor text. angry radio sounds.
+  //   renderRadioText('ANGRY FLAVOR TEXT', 'angry');
+  //   // some sort of delay...
+  //   sendInstructions('angry');
+  // }
+};
+
+const disputeItems = () => {
+  // When pressed, should add a dispute icon to the inventory.
+  // "Be warned! If you get three disputes wrong, you're fired!!!"
+};
+
+// ------------------- HELPER FUNCTIONS ---------------------- //
+
+// TO IMPLEMENT: all animations, sounds, state changes.
+const updatePoints = (pointsAccrued, pointsDeducted) => {
+  // Used in sendItems.
+  // renders green/red text flashes with point values, total points changing. updates state.
+
+  const pointChange = pointsAccrued + pointsDeducted;
+  if (pointsAccrued > 0) {
+    // play $$$ sound and render green text
+  }
+  if (pointsDeducted < 0) {
+    // play sad sound and render red text. NOTE: happy/sad can play simultaneously!
+  }
+
+  // setState: {points = state.points + pointChange}
+  // render the change in points... somehow.
+};
+
+// TO IMPLEMENT: renderRadioText(), audio, animations.
+const sendInstructions = (mood = 'neutral') => {
+  // Called on-press by radio, or by sendItems.
+  // Calls renderRadioText() to re-render text, audio, animations.
+
+  const currentInstructions = instructions[currentInstructionIndex];
+  const text = currentInstructions.text;
+  renderRadioText(text, mood);
+};
+
+// TO IMPLEMENT: literally all of it lol.
+const renderRadioText = (text, mood = 'neutral') => {
+  // Given text, renders. Animations differ based on mood.
+  // called by sendInstructions, and should also be called for any flavor text you want to add.
+
+  // i.e. if 'happy', play happy audio. if 'neutral', play neutral audio.
+  // for both of these, same radio animations.
+  // if 'angry', play angry audio and animate the radio and text bubble angrily.
+  return `NOT DONE YET. But here's the text: ${text}`;
+};
+
+// ------------------- ACTUAL FOOT CODE ---------------------- //
+
+// TO IMPLEMENT: Figure out how you want to pass functions down as props.
+// Instructions rendering and functions
+// Radio on-click
 const Foot = (props) => (
   <View style={props.styles.footer}>
 
@@ -89,8 +220,7 @@ const Foot = (props) => (
         styles={props.styles}
         inventory={props.inventory}
         pressInventory={props.pressInventory}
-        thirdSlot={props.thirdSlot}
-        fourthSlot={props.fourthSlot}
+        numSlots={props.numSlots}
       />
     </View>
 
@@ -125,9 +255,9 @@ const Foot = (props) => (
         </TouchableOpacity>
         <TouchableOpacity
           style={props.styles.noButton} // write this style
-          onPress={props.denyItems} // write this event handler
+          onPress={props.disputeItems} // write this event handler
         >
-          <Text style={props.styles.buttonNo}>Don&apos;t!</Text>
+          <Text style={props.styles.buttonNo}>Dispute!</Text>
         </TouchableOpacity>
 
       </View>

@@ -13,7 +13,7 @@ import styles from '../utils/Styles';
 
 
 // PROPS REQUIRED FROM STATE (I guess this is declared from the campaign menu (level select)):
-// thirdSlot and fourthSlot (boolean)
+// numSlots
 // navigation
 // ADD TO THIS
 
@@ -23,7 +23,9 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // This may not actually be where we need to instantiate these things?
+      // This is probably where we need to instantiate gamestate. Based on the level information
+      // inherited through props, we set state based on raw game data.
+
       // Perhaps we also will need to pass state in:
       // i.e. inventory: this.props.inventory
       // we'll cross that bridge when we get to it.
@@ -33,6 +35,7 @@ export default class Game extends React.Component {
       inventory: [
         {name: 'EMPTYSLOT'}, {name: 'EMPTYSLOT'}, {name: 'EMPTYSLOT'}, {name: 'EMPTYSLOT'},
       ],
+      numSlots: 2, // set using props.numSlots from level select.
       truckInventory: [],
       styles: styles,
     };
@@ -55,8 +58,7 @@ export default class Game extends React.Component {
           styles={this.styles}
           inventory={this.inventory}
           pressInventory={this.pressInventory} // check your notes on how to bind 'this' to an eventHandler properly!
-          thirdSlot={this.props.thirdSlot}
-          fourthSlot={this.props.fourthSlot}
+          numSlots={this.props.numSlots}
 
         />
       </View>
