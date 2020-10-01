@@ -45,7 +45,7 @@ const GameLogic = {
   sendItems: (state, self) => {
     // Uses props.numSlots, props.inventory, and currentInstructions.
     // On press, sends items and gives you points.
-    const items = state.instructions[self.state.currentInstructionIndex].itemsNeeded;
+    const items = state.instructions[state.currentInstructionIndex].itemsNeeded;
     let pointsAccrued = 0;
     let pointsDeducted = 0;
     let numSent = 0;
@@ -64,6 +64,7 @@ const GameLogic = {
 
       if (invenItem.wasSent) {
         // Skip inventory slot if it's already been sent.
+        // This first check is primarily in case you had a wrong item.
         numSent++;
         continue;
       } else {
@@ -72,8 +73,10 @@ const GameLogic = {
             return 'ERROR, key does not exist.';
           } else {
             const item = items[key];
-
-            if ((invenItem.name === key || item.altItems[invenItem.name]) && !item.itemReceived) {
+            if (invenItem.wasSent) {
+              // If you find the item, stop checking new items.
+              break;
+            } else if ((invenItem.name === key || item.altItems[invenItem.name]) && !item.itemReceived) {
               // pass cases!
               // maybe change itemReceived logic to account for sending items where altItem and key overlap.
 
@@ -81,8 +84,9 @@ const GameLogic = {
               item.itemReceived = true;
               invenItem.wasSent = true;
               itemCorrect = true;
+
               // Extra points if you sent altItem
-              invenItem.name === key ? extraPoints = true : extraPoints = false;
+              invenItem.name === key ? extraPoints = false : extraPoints = true;
 
               // Update state to save flags.
               self.setState(() => ({instructions: state.instructions, inventory: state.inventory}));
