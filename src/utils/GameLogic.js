@@ -3,9 +3,13 @@
 
 
 const GameLogic = {
+  // ------------------- EVENT HANDLERS ---------------------- //
+
+
   // On press, sets an item's isSelected property to true, OR
   // moves it from inventory back to truck and sets it to false.
   // TO IMPLEMENT: all css animations, disputes.
+
   pressInventory: (inventoryIndex = 0, self) => {
     self.setState((state) => {
       const item = state.inventory[inventoryIndex];
@@ -38,56 +42,58 @@ const GameLogic = {
   },
 
   // TO IMPLEMENT: finish updatePoints, sendInstructions, animations.
-  sendItems: (props, self) => {
+  sendItems: (state, self) => {
     // Uses props.numSlots, props.inventory, and currentInstructions.
     // On press, sends items and gives you points.
-    const items = props.instructions[currentInstructionIndex].itemsNeeded;
+    const items = state.instructions[self.state.currentInstructionIndex].itemsNeeded;
     let pointsAccrued = 0;
     let pointsDeducted = 0;
     let numSent = 0;
 
-    for (const key in items) {
-      if (!{}.hasOwnProperty.call(items, key)) {
-        return 'ERROR';
+    for (let i = 0; i < state.numSlots; i++) {
+      // For each inventory slot, accrue or deduct points if inventory item matches
+      // one of the specified items in the instructions
+
+      const invenItem = state.inventory[i];
+      let itemCorrect = false;
+      let extraPoints = false;
+
+      if (invenItem.name === 'EMPTYSLOT') {
+        return 'ERROR, REMINDER TO IMPLEMENT NO-SEND IF INVENTORY IS NOT FULL.';
+      }
+
+      if (invenItem.wasSent) {
+        // Skip inventory slot if it's already been sent.
+        numSent++;
+        continue;
       } else {
-        const item = items[key];
-        for (let i = 0; i < props.numSlots; i++) {
-          const invenItem = props.inventory[i];
+        for (const key in items) {
+          if (!{}.hasOwnProperty.call(items, key)) {
+            return 'ERROR, key does not exist.';
+          } else {
+            const item = items[key];
 
-          // this is a temporary case. remove when properly implemented.
-          if (invenItem.name === 'EMPTYSLOT') {
-            return 'ERROR THIS IS A REMINDER TO IMPLEMENT NO-SENDING IF INVENTORY ISN\'T FULL.';
-          }
-
-          if (invenItem.wasSent) {
-            // if inventory item has been sent already, SKIP.
-            numSent++;
-            continue;
-          } else if (invenItem.name === key || item.altItems[invenItem.name]) {
-            // pass cases
-
-            // if item has already been received, deduct points.
-            if (item.itemReceived) {
-              pointsDeducted -= 100;
-              // flash slot red.
-            } else {
-              // If it hasn't been received, set flag to true and style green.
-              item.itemReceived = true;
-              invenItem.wasSent = true;
-
-              // update state to save the above flags.
-              self.setState(() => ({instructions: props.instructions, inventory: props.inventory}));
+            if ((invenItem.name === key || item.altItems[invenItem.name]) && !item.itemReceived) {
+              // pass cases!
+              // maybe change itemReceived logic to account for sending items where altItem and key overlap.
 
               numSent++;
-              // IMPLEMENT style slot green + checkmark.
+              item.itemReceived = true;
+              invenItem.wasSent = true;
+              itemCorrect = true;
+              // Extra points if you sent altItem
+              invenItem.name === key ? extraPoints = true : extraPoints = false;
 
-              // extra points if you sent the alternative.
-              invenItem.name === key ? pointsAccrued += 300 : pointsAccrued += 500;
+              // IMPLEMENT style slot green + checkmark
+
+              // Update state to save flags.
+              self.setState(() => ({instructions: state.instructions, inventory: state.inventory}));
+            } else {
+              // fail cases. FILL IN MORE LATER IF YOU WANT TO CHANGE LOGIC.
+              itemCorrect = false;
             }
-          } else {
-            // fail cases
-            pointsDeducted -= 100;
-            // flash slot red.
+            // Deduct or accrue points based on flags set.
+            !itemCorrect ? pointsDeducted -= 100 : (extraPoints ? pointsAccrued += 500 : pointsAccrued += 300);
           }
         }
       }
@@ -96,17 +102,23 @@ const GameLogic = {
     // Call below to update points and render animations.
     GameLogic.updatePoints(pointsAccrued, pointsDeducted, self);
 
-    if (numSent === props.numSlots) {
-      currentInstructionIndex++;
+    if (numSent === state.numSlots) {
+      state.currentInstructionIndex += 1;
+      self.setState((state) => ({currentInstructionIndex: state.currentInstructionIndex}));
+
+      // self.setState((state) => ({currentInstructionIndex: state.currentInstructionIndex + 1}));
+      // ^^^why didn't this work? State didn't update immediately when I called
+      // self.state.currentInstructionIndex a few lines later.
+
       // render 'good job' flavor text. happy radio sounds.
       GameLogic.renderRadioText('HAPPY FLAVOR TEXT', 'happy', self);
       // some sort of delay.....
-      GameLogic.sendInstructions('happy', self);
+      GameLogic.sendInstructions('happy', state.currentInstructionIndex, self);
     } else {
       // unhappy sounds. angry flavor text. angry radio sounds.
       GameLogic.renderRadioText('ANGRY FLAVOR TEXT', 'angry', self);
       // some sort of delay...
-      GameLogic.sendInstructions('angry', self);
+      GameLogic.sendInstructions('angry', state.currentInstructionIndex, self);
     }
   },
 
@@ -117,7 +129,7 @@ const GameLogic = {
   sendInstructions: (mood = 'neutral', index, self) => {
     // Called on-press by radio, or by sendItems.
     // Calls renderRadioText() to re-render text, audio, animations.
-    const currentInstructions = instructions[index];
+    const currentInstructions = self.state.instructions[index];
     const text = currentInstructions.text;
     GameLogic.renderRadioText(text, mood, self);
   },

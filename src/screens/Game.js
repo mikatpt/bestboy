@@ -13,6 +13,10 @@ import styles from '../utils/Styles';
 // navigation is passed in as this.props.navigation - should I instead add to state,
 // {navigation: this.props.navigation} ?
 
+// Currently, sendItems(state, self) accesses this.state specifically for information.
+// It changes two boolean flags in the state arg before calling self.setState to save state properly.
+// Is this kosher? Should I deep-copy state instead? Should I just pass 'this' as self?
+
 
 // PROPS REQUIRED FROM STATE (I guess this is declared from the campaign menu (level select)):
 // numSlots
@@ -21,25 +25,20 @@ import styles from '../utils/Styles';
 // ADD TO THIS
 
 
-// can I do this? It seems extra to declare this in state.
-// eslint-disable-next-line prefer-const
-let currentInstructionIndex = 0;
-
 export default class Game extends React.Component {
   // will we need props? Instantiating now just in case.
   constructor(props) {
     super(props);
     this.state = {
-      // This is probably where we need to instantiate gamestate. Based on the level information
+      // Instantiate gamestate here. Based on the level information
       // inherited through props, we set state based on raw game data.
 
-      // Perhaps we also will need to pass state in:
-      // i.e. inventory: this.props.inventory
-      // we'll cross that bridge when we get to it.
+      // PASSED THROUGH PROPS:
+      // props.numSlots, props.inventory, props.truckInventory
 
       // inventory item format:
       // {name: 'stand', url: '../assets/stand.png', isSelected: false, truckIndex: 5, OTHER PROPS}
-      // currentInstructionIndex: 0,
+      currentInstructionIndex: 0,
       currentText: 'placeholder',
 
       // if disputes hits 0, you should fail the level and be fired.
@@ -83,16 +82,16 @@ export default class Game extends React.Component {
   };
   sendItems() {
     GameLogic.sendItems(this.props, this);
-  }
+  };
+  sendInstructions(mood = 'neutral', index = this.state.currentInstructionIndex) {
+    GameLogic.sendInstructions(mood, index, this);
+  };
   renderRadioText(text, mood = 'neutral') {
     GameLogic.renderRadioText(text, mood, this);
   };
-  sendInstructions(mood = 'neutral', currentInstructionIndex) {
-    GameLogic.sendInstructions(mood, currentInstructionIndex, this);
-  };
   updatePoints(pointsAccrued = 0, pointsDeducted = 0) {
     GameLogic.updatePoints(pointsAccrued, pointsDeducted, this);
-  }
+  };
 
   render() {
     return (
