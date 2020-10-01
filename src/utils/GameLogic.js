@@ -84,17 +84,23 @@ const GameLogic = {
               // Extra points if you sent altItem
               invenItem.name === key ? extraPoints = true : extraPoints = false;
 
-              // IMPLEMENT style slot green + checkmark
-
               // Update state to save flags.
               self.setState(() => ({instructions: state.instructions, inventory: state.inventory}));
             } else {
               // fail cases. FILL IN MORE LATER IF YOU WANT TO CHANGE LOGIC.
               itemCorrect = false;
             }
-            // Deduct or accrue points based on flags set.
-            !itemCorrect ? pointsDeducted -= 100 : (extraPoints ? pointsAccrued += 500 : pointsAccrued += 300);
           }
+        }
+
+        // Deduct or accrue points based on flags set.
+        // Also style that shit.
+        if (itemCorrect) {
+          extraPoints ? pointsAccrued += 500 : pointsAccrued += 300;
+          // IMPLEMENT: style the inventory slot green with checkmark
+        } else {
+          pointsDeducted -= 100;
+          // IMPLEMENT: style the inventory slot red.
         }
       }
     }
@@ -105,10 +111,6 @@ const GameLogic = {
     if (numSent === state.numSlots) {
       state.currentInstructionIndex += 1;
       self.setState((state) => ({currentInstructionIndex: state.currentInstructionIndex}));
-
-      // self.setState((state) => ({currentInstructionIndex: state.currentInstructionIndex + 1}));
-      // ^^^why didn't this work? State didn't update immediately when I called
-      // self.state.currentInstructionIndex a few lines later.
 
       // render 'good job' flavor text. happy radio sounds.
       GameLogic.renderRadioText('HAPPY FLAVOR TEXT', 'happy', self);
@@ -149,7 +151,7 @@ const GameLogic = {
     return `NOT DONE YET. But here's the text: ${text}`;
   },
 
-  // TO IMPLEMENT: all animations, sounds, state changes.
+  // TO IMPLEMENT: all animations, sounds.
   updatePoints: (pointsAccrued, pointsDeducted, self) => {
     // Used in sendItems.
     // renders green/red text flashes with point values, total points changing. updates state.
