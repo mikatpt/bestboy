@@ -12,7 +12,7 @@ import LoadingScreen from './src/screens/LoadingScreen';
 import PlayScreen from './src/screens/PlayScreen';
 import OptionsScreen from './src/screens/OptionsScreen';
 import HighScoreScreen from './src/screens/HighScoreScreen';
-import TestScreen from './src/screens/TestScreen';
+import TestStuff from './src/screens/TestStuff';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {setStatusBarHidden} from 'expo-status-bar';
 
@@ -116,7 +116,7 @@ const App = () => {
           }}/>
         <Stack.Screen
           name="Test"
-          component={TestScreen}
+          component={TestStuff}
           // options={({ route }) => ({ title: route.params.name })}/>
           options={{
             headerTitle: 'Test',

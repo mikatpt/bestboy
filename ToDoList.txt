@@ -1,5 +1,5 @@
 BestBoy is a find-the-object game where we search a grip truck for the equipment we need for a shoot.
-You are a first year bestboy. 
+You are a first year bestboy.
 
 
 LIST OF THINGS TO DEBUG:
@@ -10,7 +10,8 @@ You should go for React.PureComponent when you can satisfy any of the below cond
     State/Props should not have a hierarchy
     You should call forceUpdate when data changes
 
-
+// Edit node_modules/react-native-typewriter file and add a sound.
+// https://www.npmjs.com/package/react-native-typewriter
 
 
 CURRENTLY WORKING ON:
@@ -19,7 +20,7 @@ CURRENTLY WORKING ON:
 GAME
     - Header
         - Pause menu
-        - Points Tracker
+        - Points Tracker (LOGIC MOSTLY IMPLEMENTED)
         - Timer
             - 30 second 'set up period'
             - x minute long day.
@@ -32,21 +33,22 @@ GAME
         - tap to select item, then tap again and hold to set up.
             - Can prep items (takes ~3-5 seconds). Gives bonus points (speed up production!)
             - BUT at end of day, have to pack up items you prepped which takes time too.
-        - Zoom capability 
-            - Open containers. 
+        - Zoom capability
+            - Open containers.
             - Explore inside of truck (Do we need this?)
         - Random events
             - Coffee mug (+5 to time)
-            
-    - Footer
+
+    - Footer (LOGIC IMPLEMENTED)
         - Inventory
         - Instructions from the grip manager
             - Accompanied with gibberish squeaky voice
             - maybe angry squeaky voice if you get something wrong
             - https://www.youtube.com/watch?v=xA0DE3S3mNo
                 - instructions on how to do it. i guess speed up x20 for the effect?
-
-            - I think the instructions should scroll, and you tap radio to get instructions again. listening is important, right?
+            - Edit node_modules/react-native-typewriter file and add a sound.
+            - https://www.npmjs.com/package/react-native-typewriter
+            - instructions scroll, tap radio to get instructions again (DONE)
         - Radio
             - SEND
             - DON'T HAVE IT!
@@ -146,7 +148,7 @@ GAME
         - maybe give each a % probability for showing up? i.e. cameras will be needed 100% of the time?
         - or have set lists
         - scenarios??? night time shoot, day time, rain, etc????
-         
+
     -Equipment is placed in truck - we should have something like 3 different truck layouts.
 
     -Zoom functionality for details.
@@ -164,7 +166,7 @@ story mode
     - get reports for how much you delayed production after each shoot day
 
 -PRACTICE MODE (Part time job at equipment rental house)
-    -options for what grip equipment you want to include in game. 
+    -options for what grip equipment you want to include in game.
 
 
 ///////////////////////////////////////////////////////////

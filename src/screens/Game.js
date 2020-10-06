@@ -34,7 +34,7 @@ export default class Game extends React.Component {
       // inherited through props, we set state based on raw game data.
 
       // PASSED THROUGH PROPS:
-      // props.numSlots, props.inventory, props.truckInventory
+      // props.numSlots, props.inventory(?), props.truckInventory
 
       // inventory item format:
       // {name: 'stand', url: '../assets/stand.png', isSelected: false, truckIndex: 5, OTHER PROPS}
@@ -43,7 +43,7 @@ export default class Game extends React.Component {
 
       // if disputes hits 0, you should fail the level and be fired.
       disputes: {name: 'DISPUTE', url: 'url', isSelected: false, quantity: 3},
-      instructions: [ // REPLACE THIS. pass in prop.instructions, and shuffle it somehow.
+      instructions: [ // REPLACE THIS. pass in prop.instructions, and shuffle when instantiating.
         {
           text: 'asking for stand and small lights!',
           itemsNeeded: {
@@ -65,6 +65,7 @@ export default class Game extends React.Component {
       numSlots: 2, // set using props.numSlots from level select.
       points: 0,
       truckInventory: [], // replace with props.truckInventory.
+      showInstructions: true,
       styles: styles,
     };
     this.pressInventory = this.pressInventory.bind(this);
@@ -90,6 +91,7 @@ export default class Game extends React.Component {
     GameLogic.renderRadioText(text, mood, this);
   };
   updatePoints(pointsAccrued = 0, pointsDeducted = 0) {
+    // Binding this function might be unnecessary if it's only ever used as a helper.
     GameLogic.updatePoints(pointsAccrued, pointsDeducted, this);
   };
 
@@ -108,7 +110,7 @@ export default class Game extends React.Component {
 
         <Foot
           inventory={this.inventory}
-          numSlots={this.props.numSlots}
+          numSlots={this.numSlots}
           styles={this.styles}
           pressInventory={this.pressInventory}
           renderRadioText={this.renderRadioText} // might not need to pass this.

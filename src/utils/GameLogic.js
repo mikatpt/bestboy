@@ -145,8 +145,8 @@ const GameLogic = {
     // Given text, renders. Animations differ based on mood.
     // called by sendInstructions, and should also be called for any flavor text you want to add.
 
-    // Sets currentText state, which controls footer text.
-    self.setState(() => ({currentText: text}));
+    // Sets currentText state, which controls footer text, and re-triggers text animation
+    self.setState(() => ({currentText: text, showInstructions: true}));
 
     // call or write a function which re-triggers text animation.
     // i.e. if 'happy', play happy audio. if 'neutral', play neutral audio.
@@ -167,9 +167,11 @@ const GameLogic = {
     if (pointsDeducted < 0) {
     // play sad sound and render red text. NOTE: happy/sad can play simultaneously!
     }
-    self.setState((state) => ({points: state.points + pointChange}));
-    // setState: {points = state.points + pointChange}
-    // render the change in points... somehow.
+    const priorValue = self.state.points;
+    self.state.points += pointChange;
+    const newValue = self.state.points;
+    self.setState((state) => ({points: newValue}));
+    // render the change in points from priorValue to newValue... maybe?
   },
 };
 
